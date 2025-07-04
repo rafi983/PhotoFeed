@@ -1,13 +1,12 @@
 import { getDictionary } from "@/app/[lang]/disctionaries";
+import { getPhotoById } from "@/lib/image-data";
 
 import Image from "next/image";
 import ImageWithFallback from "./ImageWithFallback";
 
 const PhotoDetails = async ({ id, lang }) => {
 
-
-  const response = await fetch(`${process.env.BASE_API_URL}/photos/${id}`);
-  const photo = await response.json();
+  const photo = await getPhotoById(id);
 
   const dictionary = await getDictionary(lang);
 
@@ -64,7 +63,7 @@ const PhotoDetails = async ({ id, lang }) => {
               </div>
             </div>
             <button className="flex items-center gap-1.5 text-black/60 text-xs xl:text-sm">
-              <img src="/follow.svg" className="w-5 h-5" />
+              <Image src="/follow.svg" className="w-5 h-5" alt="follow" width={20} height={20} />
               {dictionary.follow}
             </button>
           </div>
@@ -78,6 +77,7 @@ const PhotoDetails = async ({ id, lang }) => {
               <Image
                 src="/heart.svg"
                 className="w-5 h-5"
+                alt="like"
                 width={50}
                 height={50} />
               {photo.likes}
@@ -86,6 +86,7 @@ const PhotoDetails = async ({ id, lang }) => {
               <Image
                 src="/save.svg"
                 className="w-5 h-5"
+                alt="save"
                 width={50}
                 height={50} />
               {dictionary.save}
@@ -94,6 +95,7 @@ const PhotoDetails = async ({ id, lang }) => {
               <Image
                 src="/share.svg"
                 className="w-5 h-5"
+                alt="share"
                 width={50}
                 height={50} />
               {dictionary.share}

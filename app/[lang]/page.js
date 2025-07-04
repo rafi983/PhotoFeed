@@ -1,9 +1,9 @@
 import PhotoList from "@/components/PhotoList";
+import { getAllPhotos } from "@/lib/image-data";
 
 export default async function Home() {
 
-  const response = await fetch(`${process.env.BASE_API_URL}/photos`);
-  const photos = await response.json();
+  const photos = await getAllPhotos();
 
   return (
     <PhotoList photos={photos} />
